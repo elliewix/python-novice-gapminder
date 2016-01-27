@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Software Carpentry: </title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Software Carpentry Blog" href="http://software-carpentry.org/feed.xml"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="http://software-carpentry.org" title="Software Carpentry">
+          <img alt="Software Carpentry banner" src="img/software-carpentry-banner.png" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title"></h1>
+          <h1 id="python-for-novice-research-programmers">Python for Novice Research Programmers</h1>
+<h2 id="stage-0---assumptions">Stage 0 - Assumptions</h2>
+<ul>
+<li>Audience
+<ul>
+<li>Graduate students in numerate disciplines</li>
+<li>Understand very basic statistics (mean, correlation)</li>
+<li>Have manipulated data in spreadsheets and interactive tools like SAS</li>
+<li>Have <em>not</em> programmed beyond CPD (copy-paste-despair)</li>
+</ul></li>
+<li>Requirements
+<ul>
+<li>Full day: 06:30</li>
+<li>Learners use their own machines</li>
+<li>No dependence on other Carpentry modules
+<ul>
+<li>In particular, no knowledge of shell or version control</li>
+</ul></li>
+<li>Will introduce the Jupyter Notebook
+<ul>
+<li>Authentic tool used by many instructors</li>
+<li>There isn’t really an alternative</li>
+</ul></li>
+</ul></li>
+<li>Data
+<ul>
+<li>Use the gapminder data throughout</li>
+<li>Break into multiple files by continent</li>
+</ul></li>
+<li>Pandas instead of NumPy
+<ul>
+<li>Genuine novices are likely to want data analysis</li>
+<li>People with some prior experience:
+<ul>
+<li>Will accept data analysis as an authentic task</li>
+<li>Are unlikely to have encountered Pandas, so they’ll still get something useful out of the lesson</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="stage-1---desired-results">Stage 1 - Desired Results</h2>
+<h3 id="goals">Goals</h3>
+<ol style="list-style-type: decimal">
+<li>Get learners to the stage decribed in the “Software” section of “<a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing">Good Enough Practices in Scientific Computing</a>”.
+<ul>
+<li>Missing items are in <strong>bold</strong></li>
+<li>Goals
+<ol style="list-style-type: decimal">
+<li>Make it easy for people (including your future self) to understand and (re)use your code</li>
+<li>Modular, comprehensible, reusable, and testable all come together</li>
+</ol></li>
+<li>Rules
+<ol style="list-style-type: decimal">
+<li>Every analysis step is represented textually (complete with parameter values)</li>
+<li>Every program or script has a brief explanatory comment at the start</li>
+<li>Programs of all kinds (including “scripts”) are broken into functions</li>
+<li>No duplication</li>
+<li>Functions and variables have meaningful names</li>
+<li><strong>Dependencies and requirements are explicit (e.g., a requirements.txt file)</strong></li>
+<li>Commenting/uncommenting are not routinely used to control program behavior</li>
+<li>Use a simple example or test data set to run to tell if it’s working at all and whether it gives a known correct output for a simple known input</li>
+<li>Submit code to a reputable DOI-issuing repository upon submission of paper, just like data</li>
+</ol></li>
+</ul></li>
+<li>Enable them to make sense of other onlines tutorials and resources</li>
+</ol>
+<h3 id="summative-assessment">Summative Assessment</h3>
+<p>FIXME:</p>
+<ol style="list-style-type: decimal">
+<li>If we had a final exam for this, what would it be?</li>
+<li>If we had a mid-point exam, what would it be?</li>
+</ol>
+<h3 id="essential-questions">Essential Questions</h3>
+<ul>
+<li>How do I read, analyze, and visualize a tabular data set?</li>
+<li>How do I process multiple data sets?</li>
+<li>How do I tell if my program is working correctly?</li>
+<li>How do I fix it when it’s not?</li>
+<li>How do I find and use software other people have written instead of writing my own?</li>
+</ul>
+<h3 id="learners-will-be-able-to">Learners Will Be Able To…</h3>
+<ul>
+<li>Run code interactively</li>
+<li>Run code saved in a file</li>
+<li>Loop over a list</li>
+<li>Write single-condition <code>if</code> statements</li>
+<li>Convert between basic data types (integer, float, string)</li>
+<li>Call built-in functions</li>
+<li>Use <code>help</code> and online documentation</li>
+<li>Import a library using an alias</li>
+<li>Call something from an imported library</li>
+<li>Read tabular data into an array or data frame</li>
+<li>Do collective operations on arrays and data frames</li>
+<li>Create simple plots of data in arrays and data frames</li>
+<li>Interpret common error messages</li>
+<li>Track down bugs by running small tests of program modules</li>
+<li>Create literate programs in the Jupyter Notebook</li>
+</ul>
+<h3 id="learners-will-know">Learners Will Know…</h3>
+<ul>
+<li>That a program is a piece of lab equipment that implements an analysis
+<ul>
+<li>Needs to be validated/calibrated before/during use</li>
+<li>Makes analysis reproducible, reviewable, shareable</li>
+</ul></li>
+<li>That programs are written for people, not for computers
+<ul>
+<li>Meaningful variable names</li>
+<li>Modularity for readability as well as re-use</li>
+<li>No duplication</li>
+<li>Document purpose and use</li>
+</ul></li>
+<li>That there is no magic: the programs they use are no different in principle from those they build</li>
+<li>What a variable is</li>
+<li>How assignment works</li>
+<li>What integers, floats, strings, lists, arrays, and data frames are</li>
+<li>How a <code>for</code> loop executes</li>
+<li>How <code>if</code>/<code>else</code> executes</li>
+<li>The difference between defining and calling a function</li>
+<li>What a call stack is</li>
+<li>How local variables are created and scoped</li>
+<li>Where to find documentation on standard libraries</li>
+</ul>
+<h2 id="stage-2---assessment">Stage 2 - Assessment</h2>
+<h3 id="running-and-quitting-interactively">Running and Quitting Interactively</h3>
+<ul>
+<li>Teaching: 15 min (because setup issues)</li>
+<li>Exercises: 0 min (accounted for in teaching time - no separate exercise)
+<ul>
+<li>Run the Notebook</li>
+<li>Create a few Markdown cells (just formatted)</li>
+<li>Create and execute a Python cell that prints 1+2 (to show that cells can be executed)</li>
+</ul></li>
+</ul>
+<h3 id="variables-and-assignment">Variables and Assignment</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 5 min
+<ul>
+<li>Trace behavior of swapping values of two variables using an intermediate variable</li>
+<li>Calculate elapsed time in seconds using named values for seconds per minute, etc.</li>
+</ul></li>
+</ul>
+<h3 id="data-types-and-type-conversion">Data Types and Type Conversion</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 5 min
+<ul>
+<li>Predict result types (or errors) of various operations</li>
+<li>Add conversion functions to broken code to make it work</li>
+</ul></li>
+</ul>
+<h3 id="built-in-functions-and-methods-and-help">Built-in Functions (and Methods) and Help</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 5 min
+<ul>
+<li>Chain calculations with max and min</li>
+<li>Find a useful method using help(str)</li>
+<li>Parsons Problem to achieve specific results with string methods</li>
+</ul></li>
+</ul>
+<h3 id="error-messages">Error Messages</h3>
+<ul>
+<li>Teaching: 10 min (review of error messages seen to date)</li>
+<li>Exercises: 10 min
+<ul>
+<li>Diagnose and fix small errors (some syntax, some runtime)</li>
+</ul></li>
+</ul>
+<h3 id="libraries-including-aliases">Libraries (Including Aliases)</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 5 min
+<ul>
+<li>Operations with math library</li>
+<li>Look things up in the python.org docs</li>
+</ul></li>
+</ul>
+<h3 id="coffee-15-min"><em>Coffee: 15 min</em></h3>
+<h3 id="pandas-data-frames">Pandas Data Frames</h3>
+<ul>
+<li>Teaching: 10 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>Import Pandas</li>
+<li>Create and display a data frame</li>
+</ul></li>
+</ul>
+<h3 id="reading-tabular-data">Reading Tabular Data</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 5 min
+<ul>
+<li>Read one continent’s subset of gapminder CSV data</li>
+</ul></li>
+<li>Callout:
+<ul>
+<li>How to read data from Excel spreadsheets via export to CSV</li>
+<li>How tor ead data from Excel spreadsheets directly (needs another library)</li>
+</ul></li>
+</ul>
+<h3 id="collective-operations">Collective Operations</h3>
+<ul>
+<li>Teaching: 10 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>Select various subsets of data</li>
+<li>Normalize values (scale to 0..1)</li>
+</ul></li>
+</ul>
+<h3 id="plotting">Plotting</h3>
+<ul>
+<li>Teaching: 10 min (to show a variety of plots and debug display problems)</li>
+<li>Exercises: 5 min
+<ul>
+<li>Plot normalized change in GDP over time (tweaking provided code)</li>
+</ul></li>
+</ul>
+<h3 id="for-loops">For Loops</h3>
+<ul>
+<li>Teaching: 15 min (do <em>not</em> introduce lists)</li>
+<li>Exercises: 10 min
+<ul>
+<li>Reverse a string by repeated append</li>
+<li>Trace execution of loop</li>
+</ul></li>
+</ul>
+<h3 id="looping-over-data-sets">Looping Over Data Sets</h3>
+<ul>
+<li>Teaching: 10 min (use <code>glob</code> to get filenames)</li>
+<li>Exercises: 15 min
+<ul>
+<li>Count rows of each data set</li>
+<li>Check number of columns in each data set is the same</li>
+</ul></li>
+</ul>
+<h3 id="lunch-60-min"><em>Lunch: 60 min</em></h3>
+<h3 id="lists">Lists</h3>
+<ul>
+<li>Teaching: 10 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>Indexing exercises</li>
+<li>Conversion from list to string and back</li>
+<li>Sum values in a list</li>
+</ul></li>
+</ul>
+<h3 id="conditionals">Conditionals</h3>
+<ul>
+<li>Teaching: 10 min (inside loop)</li>
+<li>Exercises: 15 min
+<ul>
+<li>Count vowels</li>
+<li>Report badly-sized files inside loop</li>
+</ul></li>
+</ul>
+<h3 id="writing-functions">Writing Functions</h3>
+<ul>
+<li>Teaching: 15 min</li>
+<li>Exercises: 15 min
+<ul>
+<li>Check size of a single data file</li>
+<li>Check sizes of all data files in a directory
+<ul>
+<li>Write new function using previous function</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>Add docstrings to functions written earlier</li>
+</ul></li>
+</ul>
+<h3 id="coffee-15-min-1"><em>Coffee: 15 min</em></h3>
+<h3 id="programming-style">Programming Style</h3>
+<ul>
+<li>Teaching: 10 min (mostly to introduce checklist)</li>
+<li>Exercises: 15 min
+<ul>
+<li>Clean up badly-written 20-line program</li>
+</ul></li>
+</ul>
+<h3 id="debugging">Debugging</h3>
+<ul>
+<li>Teaching: 10 min (divide and conquer)</li>
+<li>Exercises: 15 min
+<ul>
+<li>Debug three-function program</li>
+</ul></li>
+</ul>
+<h3 id="defensive-programming">Defensive Programming</h3>
+<ul>
+<li>Teaching: 5 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>Add assertions to functions based on docstrings</li>
+</ul></li>
+</ul>
+<h3 id="programming-with-arrays">Programming with Arrays</h3>
+<ul>
+<li>Teaching: 10 min</li>
+<li>Exercises: 10 min
+<ul>
+<li>More complicated array indexing</li>
+</ul></li>
+</ul>
+<h3 id="wrap-up">Wrap-Up</h3>
+<ul>
+<li>Teaching: 25 min
+<ul>
+<li>Overview of key SciPy modules</li>
+<li>How to find and install libraries</li>
+<li>Running Python from the command line</li>
+<li>Other editing tools</li>
+</ul></li>
+<li>Exercises: 0 min</li>
+</ul>
+<h2 id="stage-3---learning-plan">Stage 3 - Learning Plan</h2>
+<p>FIXME: fill in Teaching items above and add instructors’ notes here.</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/swcarpentry/lesson-template">Source</a>
+        <a class="label swc-blue-bg" href="mailto:admin@software-carpentry.org">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>
